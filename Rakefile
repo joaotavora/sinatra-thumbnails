@@ -17,11 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "sinatra-thumbnails"
   gem.homepage = "http://github.com/capitaomorte/sinatra-thumbnails"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "tururu turur"
+  gem.description ="farfalini"
   gem.email = "joaotavora@gmail.com"
   gem.authors = ["João Távora"]
   # dependencies defined in Gemfile
+  gem.files = "lib/**/*.rb"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
