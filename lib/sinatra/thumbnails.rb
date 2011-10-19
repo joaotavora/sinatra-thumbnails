@@ -11,7 +11,7 @@ module Sinatra
           Thumbnails::Settings.send(:define_method, name) do |val|
             self[key] = val
           end
-          self.send(args[0])
+          self.send(name, args[0])
         elsif args.length == 0
           raise NoMethodError unless self[name]
           Thumbnails::Settings.send(:define_method, name) do
