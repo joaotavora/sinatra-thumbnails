@@ -28,7 +28,7 @@ module Sinatra
       original_extension ||= "jpg"
       thumbnail_file = File.join(settings.thumbnail_path, "#{format}/#{file}")
       FileUtils.mkdir_p File.dirname(thumbnail_file)
-      orig_file = File.join(settings.image_path_prefix, file.gsub(/(.*\.)(.*$)/,"\\1#{original_extension}"))
+      orig_file = File.join(".", settings.image_path_prefix, file.gsub(/(.*\.)(.*$)/,"\\1#{original_extension}"))
 
       unless File.exists?(thumbnail_file) and (File.stat(thumbnail_file).mtime >= File.stat(orig_file).mtime)
         
