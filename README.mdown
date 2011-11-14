@@ -23,40 +23,39 @@ loosely arranged as follows.
          desc.mdown      # description of another_gallery             
 
 I use bundler, so in my `Gemfile`
-```ruby
-gem 'sinatra-thumbnails', :require => "sinatra/thumbnails"
-```
+
+    gem 'sinatra-thumbnails', :require => "sinatra/thumbnails"
 
 I have a `app.rb` like
-```ruby
-require 'rubygems'
-require 'bundler'
-Bundler.require
 
-module ContentHelpers
-  def content_path(file)
-    File.join("content",params[:gallery], file)
-  end
-end
+    require 'rubygems'
+    require 'bundler'
+    Bundler.require
 
-helpers do
-  include ContentHelpers
-end
+    module ContentHelpers
+      def content_path(file)
+        File.join("content",params[:gallery], file)
+      end
+    end
+    
+    helpers do
+      include ContentHelpers
+    end
  
-get "/:gallery" do
-  # A gallery has marldown description snippet 
-  #
-  file =  content_path("desc.mdown")
-  if File.exists? file
-    @description = Maruku.new(File.read(file)).to_html
-  end
-  
-  # ... and a bunch of jpegs...
-  # 
-  @images = Dir.glob(content_path("*.{jpg,jpeg,JPG,JPEG}"))
-  haml :gallery
-end
-```
+    get "/:gallery" do
+      # A gallery has marldown description snippet 
+      #
+      file =  content_path("desc.mdown")
+      if File.exists? file
+        @description = Maruku.new(File.read(file)).to_html
+      end
+      
+      # ... and a bunch of jpegs...
+      # 
+      @images = Dir.glob(content_path("*.{jpg,jpeg,JPG,JPEG}"))
+      haml :gallery
+    end
+
 
 This is the `gallery.haml` partial, notice the call to `thumbnail_url_for`:
 
