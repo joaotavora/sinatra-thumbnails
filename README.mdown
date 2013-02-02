@@ -111,6 +111,15 @@ portfolio/
 The next time the very same URL is loaded, and unless `test.jpg` has changed in
 the meantime, the `test.png` is just served and not recreated again.
 
+##  Crop to Fit
+
+Thumbnails will maintain their aspect ratio. In order to make crop the image to fit a specific thumbnail size, append -crop to the format.
+For example, for following will create a square thumbnail with edges cropped off.
+
+```
+<img src='public/thumbnails/200x200-crop/content/some_gallery/test.png?original_extension=jpg' />
+```
+
 ## Contributing to sinatra-thumbnails 
 
 Fell free to fork and submit pull requests. 
