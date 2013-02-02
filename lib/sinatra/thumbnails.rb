@@ -48,15 +48,15 @@ module Sinatra
 
     def self.convert(src, dest, format)
       if (format =~ /(.*)-crop$/) 
-        if (im_version <=> [6,6,4]) >= 0
-          format = $1 + "^" + " -gravity center -extent " + $1
-        else
-          format = $1
-        end
+        #if (im_version <=> [6,6,4]) >= 0
+          format = "\"" + $1 + "^\"" + " -gravity center -extent " + $1
+        #else
+        #  format = $1
+        #end
       end
       FileUtils.mkdir_p(File.dirname(dest))
       command = "#{Sinatra::Thumbnails.settings.convert_executable} -define jpeg:size=400x400 \"#{src}\" -thumbnail #{format} \"#{dest}\""
-      # puts "Sinatra::Thumbnails: issuing \"#{command}\""
+      puts "Sinatra::Thumbnails: issuing \"#{command}\""
       run_command(command)
     end
     
