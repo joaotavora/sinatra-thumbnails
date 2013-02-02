@@ -47,6 +47,11 @@ helpers do
   include ContentHelpers
 end
 
+get "/content/*" do
+ file = "content/" + params[:splat].first
+ send_file file
+end
+
 get "/:gallery" do
   # A gallery has markdown description snippet 
   #
