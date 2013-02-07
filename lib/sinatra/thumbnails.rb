@@ -49,21 +49,21 @@ module Sinatra
     def self.convert(src, dest, format)
       if (format =~ /(.*)-crop$/) 
         if (im_version <=> [6,6,4]) >= 0
-          format = $1 + "^" + " -gravity center -extent " + $1
+          format = "\"" + $1 + "^\"" + " -gravity center -extent " + $1
         else
           format = $1
         end
       end
       FileUtils.mkdir_p(File.dirname(dest))
-      command = "#{Sinatra::Thumbnails.settings.convert_executable} -define jpeg:size=400x400 '#{src}' -thumbnail #{format} '#{dest}'"
-      # puts "Sinatra::Thumbnails: issuing \"#{command}\""
+      command = "#{Sinatra::Thumbnails.settings.convert_executable} -define jpeg:size=400x400 \"#{src}\" -thumbnail #{format} \"#{dest}\""
+      puts "Sinatra::Thumbnails: issuing \"#{command}\""
       run_command(command)
     end
     
     def self.ffmpeg(src, dest, format)
       puts "making movie thumb on the fly"
       seconds = (src =~ /\.ss([\d]+)/) ? Regexp.last_match(1).to_i : 0 
-      command = "#{Sinatra::Thumbnails.settings.ffmpeg_executable} -y -i '#{src}' -an -ss #{seconds} -r 1 -vframes 1 -f mjpeg  '#{dest}'"
+      command = "#{Sinatra::Thumbnails.settings.ffmpeg_executable} -y -i \"#{src}\" -an -ss #{seconds} -r 1 -vframes 1 -f mjpeg  \"#{dest}\""
       # puts "Sinatra::Thumbnails: issuing \"#{command}\""
       run_command(command)
       convert(dest, dest, format)
@@ -79,7 +79,7 @@ module Sinatra
       @@settings ||= { :convert_executable  => 'convert'     ,   
                        :ffmpeg_executable   => 'ffmpeg'      ,   
                        :thumbnail_path      => 'public/thumbnails'  ,
-                       :image_path_prefix   => 'public'             ,
+                       :image_path_prefix   => ''             ,
                        :thumbnail_extension => 'png'         ,   
                        :thumbnail_format    => '100x100'       }.extend(Thumbnails::Settings) 
     end

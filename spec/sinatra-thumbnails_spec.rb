@@ -14,9 +14,9 @@ module FixtureHelper
   def create_fixtures
     FileUtils.mkdir_p(fixtures_path)
     Sinatra::Base.set :root, fixtures_path
-    Sinatra::Base.set :public, File.join(fixtures_path, "public")
+    Sinatra::Base.set :public_folder, File.join(fixtures_path, "public")
 
-    images_dir = File.join(Sinatra::Base.public,"images")
+    images_dir = File.join(fixtures_path,"images")
     FileUtils.mkdir_p(images_dir)
 
     some_images_dir = File.join(File.dirname(__FILE__), "test_assets") 
